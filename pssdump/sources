@@ -1,0 +1,43 @@
+#
+# Target configuration.
+#
+TARGETNAME=pssdump
+TARGETTYPE=PROGRAM
+
+UMTYPE=console
+UMBASE=0x0400000
+UMENTRY=wmain
+
+#
+# Compiler configuration.
+#
+C_DEFINES=$(C_DEFINES) -D_UNICODE -DUNICODE
+USE_MSVCRT=1
+#USE_NATIVE_EH=1
+MSC_WARNING_LEVEL=/W4 /WX
+#PRECOMPILED_INCLUDE=precomp.h
+#PRECOMPILED_CXX=0
+GUARD_CHECKS=0
+
+INCLUDES=\
+    $(SDK_INC_PATH); \
+    $(WINDOWS_INC_PATH);
+
+#
+# Linker configuration.
+#
+TARGETLIBS=\
+    $(SDK_LIB_PATH)\ntdll.lib \
+    $(SDK_LIB_PATH)\kernel32.lib \
+    $(SDK_LIB_PATH)\dbghelp.lib
+
+MUI=0
+MUI_COMMENT=non-shipping tool
+
+#
+# Unit configuration.
+#
+SOURCES=\
+    pssdump.c
+
+#RUN_WPP=$(SOURCES) -um -func:TRACE_ERROR{LEVEL=Error}(MSG,...) -func:TRACE_WARNING{LEVEL=Warning}(MSG,...) -func:TRACE_INFO{LEVEL=Info}(MSG,...) -func:TRACE_SPEW{LEVEL=Spew}(MSG,...) -scan:.trace.h
